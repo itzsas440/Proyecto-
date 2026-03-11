@@ -16,17 +16,17 @@
             <h2 class="mb-4">Lista de Pendientes</h2>
             <div class="input-group mb-3">
                 <input type="text" id="input-box" class="form-control" placeholder="Escribe una tarea...">
-                <button class="btn btn-primary" onclick="agregar()">Agregar</button>
+                <button id="btn-agregar" class="btn btn-primary">Agregar</button>
             </div>
 
             <h3>Pendientes</h3>
             <ul id="pendientes" class="list-group mb-3"></ul>
-            <button class="btn btn-primary btn-sm" onclick="mover()">Marcar como completado</button>
+            <button id="btn-mover" class="btn btn-primary btn-sm">Marcar como completado</button>
 
             <h3 class="mt-4">Realizadas</h3>
             <ul id="realizadas" class="list-group mb-3"></ul>
-            <button class="btn btn-danger btn-sm" onclick="remover()">Borrar tareas realizadas</button>
-
+            <button id="btn-remover" class="btn btn-danger btn-sm">Borrar tareas realizadas</button>
+            
         </div>
     </div>
     <script src="pendiente.js"></script>

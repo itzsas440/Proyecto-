@@ -1,30 +1,25 @@
 const express = require('express');
 const app = express();
 const path = require('path');
-
 app.use(express.json());
-// Sirve automáticamente los archivos estáticos desde la carpeta 'public'
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static('public'));
 
-// Almacenamiento en memoria (Simula base de datos)
-let estado = {
-    pendientes: "",
-    realizadas: ""
-};
+let estado = { pendientes: "", realizadas: "" };
+let nombres = []; // Para validar duplicados en el servidor
 
-// API: Obtener estado actual
-app.get('/api/estado', (req, res) => {
-    res.json(estado);
+app.get('/api/estado', (req, res) => res.json(estado));
+
+app.post('/api/agregar', (req, res) => {
+    const { nombre } = req.body;
+    if (!nombre || nombres.includes(nombre.toLowerCase())) return res.status(400).send();
+    
+    nombres.push(nombre.toLowerCase());
+    res.status(201).send();
 });
 
-// API: Guardar nuevo estado
 app.post('/api/guardar', (req, res) => {
-    estado.pendientes = req.body.pendientes;
-    estado.realizadas = req.body.realizadas;
+    estado = req.body;
     res.sendStatus(200);
 });
 
-// Escuchar en 0.0.0.0 para acceso por red local
-app.listen(8080, '0.0.0.0', () => {
-    console.log("Servidor distribuido corriendo en http://0.0.0.0:8080");
-});
+app.listen(8080, '0.0.0.0');
